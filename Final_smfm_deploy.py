@@ -37,7 +37,7 @@ with col1:
    
     # Map display labels to model keys
     t1_target_display = {
-        'Composite': 'Composite',
+        'Composite': 'Composite adverse fetal outcome',
         'Other structural anomaly': 'Anomaly',
         'Any genetic diagnoses': 'Common aneuploidy (T21, T13, T18, Monosomy X)',
         'SAB/IUFD': 'SAB',
@@ -72,7 +72,7 @@ with col1:
             prob = np.mean(probs)
 
             st.markdown("**\nPredicted Risk:**")
-            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {target_1st}]")
+            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {t1_target_display}]")
             st.markdown(f"95% CI: {round(lower * 100, 2)}% – {round(upper * 100, 2)}%")
 
             fig, ax = plt.subplots()
@@ -136,7 +136,7 @@ with col2:
             prob = np.mean(probs)
 
             st.markdown("**\nPredicted Risk:**")
-            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {target_2nd}]")
+            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {t2_target_display}]")
             st.markdown(f"95% CI: {round(lower * 100, 2)}% – {round(upper * 100, 2)}%")
 
             fig, ax = plt.subplots()
