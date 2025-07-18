@@ -34,10 +34,24 @@ with col1:
     nipt_1st = st.selectbox("NIPT result:", ["Normal", "Abnormal", "Not Reported"], key="nipt1")
 
     st.markdown("<div style='background-color: #e0f7fa; padding: 10px; border-radius: 5px;'><b style='color: black;'>Select 1st trimester outcome:</b></div>", unsafe_allow_html=True)
-    target_1st = st.selectbox("", [
-        'Composite', 'Anomaly', 'Common aneuploidy (T21, T13, T18, Monosomy X)', 'SAB', 'Livebirth',
-        "Trisomy 21 (Down syndrome)", "Trisomy 18", "Trisomy 13",
-        "Monosomy X (Turner syndrome)", "Other genetic diagnoses"], key="1st_trimester_selector")
+   
+    # Map display labels to model keys
+    t1_target_display = {
+        'Composite': 'Composite',
+        'Other structural anomaly': 'Anomaly',
+        'Any genetic diagnoses': 'Common aneuploidy (T21, T13, T18, Monosomy X)',
+        'SAB/IUFD': 'SAB',
+        'Livebirth': 'Livebirth',
+        'Trisomy 21 (Down syndrome)': 'Trisomy 21 (Down syndrome)',
+        'Trisomy 18': 'Trisomy 18',
+        'Trisomy 13': 'Trisomy 13',
+        'Monosomy X (Turner syndrome)': 'Monosomy X (Turner syndrome)',
+        'Other genetic diagnoses': 'Other genetic diagnoses'
+    }
+
+    # Use display names in dropdown, then map to internal key
+    target_1st_display = st.selectbox("", list(t1_target_display.keys()), key="1st_trimester_selector")
+    target_1st = t1_target_display[target_1st_display]
 
     if st.button("Predict Outcome for T1"):
         ntmom_cal_1st = nt_1st / (0.437 + 0.01969 * crl_1st)
@@ -88,8 +102,15 @@ with col2:
     resolved_ch = st.selectbox("Resolved CH?", ["Yes", "No"], key="resolvedCH")
 
     st.markdown("<div style='background-color: #fff1e2; padding: 10px; border-radius: 5px;'><b style='color: black;'>Select 2nd trimester outcome:</b></div>", unsafe_allow_html=True)
-    target_2nd = st.selectbox("", [
-        'Anomaly', 'Livebirth', "Other genetic diagnoses"], key="2nd_trimester_selector")
+        # Display-to-key mapping for T2 outcomes
+    t2_target_display = {
+        'Other structural anomaly': 'Anomaly',
+        'Livebirth': 'Livebirth',
+        'Other genetic diagnoses': 'Other genetic diagnoses'
+    }
+
+    target_2nd_display = st.selectbox("", list(t2_target_display.keys()), key="2nd_trimester_selector")
+    target_2nd = t2_target_display[target_2nd_display]  # used for model file lookup
 
     if st.button("Predict Outcome for T2"):
         ntmom_cal_2nd = nt_2nd / (0.437 + 0.01969 * crl_2nd)
