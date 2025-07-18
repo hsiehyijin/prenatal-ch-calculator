@@ -72,7 +72,7 @@ with col1:
             prob = np.mean(probs)
 
             st.markdown("**\nPredicted Risk:**")
-            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {t1_target_display}]")
+            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {target_1st_display}]")
             st.markdown(f"95% CI: {round(lower * 100, 2)}% – {round(upper * 100, 2)}%")
 
             fig, ax = plt.subplots()
@@ -136,7 +136,7 @@ with col2:
             prob = np.mean(probs)
 
             st.markdown("**\nPredicted Risk:**")
-            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {t2_target_display}]")
+            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {target_2nd_display}]")
             st.markdown(f"95% CI: {round(lower * 100, 2)}% – {round(upper * 100, 2)}%")
 
             fig, ax = plt.subplots()
