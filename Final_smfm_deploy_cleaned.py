@@ -9,6 +9,7 @@ def load_model_cached(path):
     with open(path, "rb") as f:
         return pickle.load(f)
 
+
 # ------------------- CONFIG -------------------
 MODEL_DIR = "."  # Folder where .pkl models are saved
 
