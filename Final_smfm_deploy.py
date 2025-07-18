@@ -97,8 +97,8 @@ with col2:
 )
     st.caption("Trained on 66 non-aneuploidy cases with CH in second trimester")
 
-    nt_2nd = st.number_input("NT (mm, T2)", min_value=0.1, max_value=10.0, value=2.5, step=0.1, key="nt2")
-    crl_2nd = st.number_input("CRL (mm, T2)", min_value=5.0, max_value=100.0, value=50.0, step=0.1, key="crl2")
+    nt_2nd = st.number_input("First Trimester NT (mm)", min_value=0.1, max_value=10.0, value=2.5, step=0.1, key="nt2")
+    crl_2nd = st.number_input("CRL at time of NT (mm)", min_value=5.0, max_value=100.0, value=50.0, step=0.1, key="crl2")
     resolved_ch = st.selectbox("Resolved CH?", ["Yes", "No"], key="resolvedCH")
 
     st.markdown("<div style='background-color: #fff1e2; padding: 10px; border-radius: 5px;'><b style='color: black;'>Select 2nd trimester outcome:</b></div>", unsafe_allow_html=True)
