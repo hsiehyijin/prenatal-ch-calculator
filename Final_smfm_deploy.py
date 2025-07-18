@@ -37,7 +37,7 @@ with col1:
    
     # Map display labels to model keys
     t1_target_display = {
-        'Composite': 'Composite adverse fetal outcome',
+        'Composite adverse fetal outcome': 'Composite',
         'Other structural anomaly': 'Anomaly',
         'Any genetic diagnoses': 'Common aneuploidy (T21, T13, T18, Monosomy X)',
         'SAB/IUFD': 'SAB',
