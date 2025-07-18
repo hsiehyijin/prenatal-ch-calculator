@@ -4,6 +4,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+@st.cache_resource
+def load_model_cached(path):
+    with open(path, "rb") as f:
+        return pickle.load(f)
+
 # ------------------- CONFIG -------------------
 MODEL_DIR = "."  # Folder where .pkl models are saved
 
@@ -39,12 +44,7 @@ with col1:
         "Trisomy 21 (Down syndrome)", "Trisomy 18", "Trisomy 13",
         "Monosomy X (Turner syndrome)", "Other genetic diagnoses"], key="1st_trimester_selector")
 
-    @st.cache_resource
-def load_model_cached(path):
-    with open(path, "rb") as f:
-        return pickle.load(f)
-
-if st.button("Predict Outcome for T1"):
+    if st.button("Predict Outcome for T1"):
     with st.spinner("🔄 Predicting..."):
         ntmom_cal_1st = nt_1st / (0.437 + 0.01969 * crl_1st)
         X_input = pd.DataFrame([{
