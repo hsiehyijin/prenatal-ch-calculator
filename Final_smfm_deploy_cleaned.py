@@ -46,36 +46,36 @@ with col1:
         "Monosomy X (Turner syndrome)", "Other genetic diagnoses"], key="1st_trimester_selector")
 
     if st.button("Predict Outcome for T1"):
-    with st.spinner("🔄 Predicting..."):
-        ntmom_cal_1st = nt_1st / (0.437 + 0.01969 * crl_1st)
-        X_input = pd.DataFrame([{
-            'Age': age_1st,
-            'NTMoM_cal': ntmom_cal_1st,
-            'NIPT_results': {"Normal": 0, "Abnormal": 1, "Not Reported": 2}[nipt_1st]
-        }])
+        with st.spinner("🔄 Predicting..."):
+            ntmom_cal_1st = nt_1st / (0.437 + 0.01969 * crl_1st)
+            X_input = pd.DataFrame([{
+                'Age': age_1st,
+                'NTMoM_cal': ntmom_cal_1st,
+                'NIPT_results': {"Normal": 0, "Abnormal": 1, "Not Reported": 2}[nipt_1st]
+            }])
 
-        try:
-            models = load_model_cached(f"{MODEL_DIR}/bootstrapped_lasso_models_{target_1st}.pkl")
+            try:
+                models = load_model_cached(f"{MODEL_DIR}/bootstrapped_lasso_models_{target_1st}.pkl")
 
-            # Get prediction probabilities across all bootstraps
-            probs = [m.predict_proba(X_input)[0][1] for m in models]
-            lower = np.percentile(probs, 2.5)
-            upper = np.percentile(probs, 97.5)
-            prob = np.mean(probs)
+                # Get prediction probabilities across all bootstraps
+                probs = [m.predict_proba(X_input)[0][1] for m in models]
+                lower = np.percentile(probs, 2.5)
+                upper = np.percentile(probs, 97.5)
+                prob = np.mean(probs)
 
-            st.markdown("**\nPredicted Risk:**")
-            st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {target_1st}]")
-            st.markdown(f"95% CI: {round(lower * 100, 2)}% – {round(upper * 100, 2)}%")
+                st.markdown("**\nPredicted Risk:**")
+                st.markdown(f"### :orange[{round(prob * 100, 2)}% chance of {target_1st}]")
+                st.markdown(f"95% CI: {round(lower * 100, 2)}% – {round(upper * 100, 2)}%")
 
-            fig, ax = plt.subplots()
-            ax.hist(probs, bins=20, alpha=0.7, color='skyblue', edgecolor='black')
-            ax.axvline(prob, color='red', linestyle='dashed', linewidth=2)
-            ax.set_title("Bootstrapped Prediction Distribution")
-            ax.set_xlabel("Predicted Probability")
-            ax.set_ylabel("Frequency")
-            st.pyplot(fig)
-        except Exception as e:
-            st.error(f"Model error: {e}")
+                fig, ax = plt.subplots()
+                ax.hist(probs, bins=20, alpha=0.7, color='skyblue', edgecolor='black')
+                ax.axvline(prob, color='red', linestyle='dashed', linewidth=2)
+                ax.set_title("Bootstrapped Prediction Distribution")
+                ax.set_xlabel("Predicted Probability")
+                ax.set_ylabel("Frequency")
+                st.pyplot(fig)
+            except Exception as e:
+                st.error(f"Model error: {e}")
 
 # ------------------- PANEL 2: Second Trimester Calculator -------------------
 with col2:
