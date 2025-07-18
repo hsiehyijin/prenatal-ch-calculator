@@ -28,7 +28,7 @@ with col1:
 )
     st.caption("Trained on 259 cases with cystic hygroma (CH)")
 
-    age_1st = st.number_input("Maternal Age", min_value=15, max_value=5, value=32, key="age1")
+    age_1st = st.number_input("Maternal Age", min_value=15, max_value=50, value=32, key="age1")
     nt_1st = st.number_input("NT (mm)", min_value=0.1, max_value=10.0, value=2.5, key="nt1")
     crl_1st = st.number_input("CRL (mm)", min_value=5.0, max_value=100.0, value=50.0, key="crl1")
     nipt_1st = st.selectbox("NIPT result:", ["Normal", "Abnormal", "Not Reported"], key="nipt1")
